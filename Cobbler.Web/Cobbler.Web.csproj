@@ -213,8 +213,6 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Project_Readme.html" />
-    <Content Include="PSScripts\DeserializeItems.ps1" />
-    <Content Include="PSScripts\SerializeItems.ps1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cobbler.Repository\Cobbler.Repository.csproj">

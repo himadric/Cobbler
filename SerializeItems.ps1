@@ -1,7 +1,7 @@
 ﻿Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 $session = New-ScriptSession -Username "admin" -Password "b" -ConnectionUri "http://cobbler.local"
 $RootFolder="C:\Github\Cobbler\data\serialization\master"
-$ItemPaths=Get-Content "C:\Github\Cobbler\Cobbler.Web\PSScripts\SitecoreItemPath.txt"
+$ItemPaths=Get-Content "C:\Github\Cobbler\SitecoreItemPath.txt"
 $ItemExtn=".item"
 foreach($ItemPath in $ItemPaths)
 {

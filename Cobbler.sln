@@ -19,9 +19,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		DeserializeItems.ps1 = DeserializeItems.ps1
 		gulp-config.js = gulp-config.js
 		gulpfile.js = gulpfile.js
 		package.json = package.json
+		SerializeItems.ps1 = SerializeItems.ps1
+		SitecoreItemPath.txt = SitecoreItemPath.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cobbler.Web.Tests", "Cobbler.Web.Tests\Cobbler.Web.Tests.csproj", "{B66EDD2A-FB99-439A-B4DA-56FCD61D23CB}"
