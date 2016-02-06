@@ -3,8 +3,8 @@ module.exports = function () {
         cobblerWebsiteRootLocal: "C:/websites/cobbler/website",
         elfWebsiteRootLocal: "C:/websites/elf",
         psScriptFolderLocal: "./",
-        cobblerWebsiteRootQA: "//NTI-AZ-NIDECQA/Websites/cobbler/website",
-        elfWebsiteRootQA: "//NTI-AZ-NIDECQA/Websites/elf",
+        cobblerWebsiteRootQA: "//NTI-AZ-NIDECQA/cobbler",
+        elfWebsiteRootQA: "//NTI-AZ-NIDECQA/elf",
         psScriptFolderQA: "./",
         solutionName: "Cobbler"
     }

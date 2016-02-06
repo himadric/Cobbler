@@ -180,18 +180,10 @@ gulp.task("Publish-Cobbler-Design-QA", function () {
     gulp.src("./Cobbler.Design/Scripts/**/*").pipe(gulp.dest(destCobbler + "/Scripts"));
 });
 
-gulp.task('Serialize-Cobbler-Items-QA', function (cb) {
-    var psScriptFolder = config.psScriptFolderQA;
-    exec('powershell.exe -file ' + psScriptFolder + '/SerializeItems.ps1', function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
-});
 
 gulp.task('Deserialize-Cobbler-Items-QA', function (cb) {
     var psScriptFolder = config.psScriptFolderQA;
-    exec('powershell.exe -file ' + psScriptFolder + '/DeserializeItems.ps1', function (err, stdout, stderr) {
+    exec('powershell.exe -file ' + psScriptFolder + '/DeserializeItems-qa.ps1', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
