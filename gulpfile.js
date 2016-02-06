@@ -14,6 +14,9 @@ var path = require("path");
 var config = require("./gulp-config.js")();
 var items = [];
 
+var exec = require('child_process').exec;
+
+//Scripts for Local Environment
 gulp.task("Publish-Cobbler-Local", function() {
     var destCobbler = config.cobblerWebsiteRootLocal;
     console.log("publish to " + destCobbler + " folder");
@@ -65,11 +68,9 @@ gulp.task("Publish-Cobbler-Design-Local", function () {
     gulp.src("./Cobbler.Design/Scripts/**/*").pipe(gulp.dest(destCobbler + "/Scripts"));
 });
 
-var exec = require('child_process').exec;
-
-gulp.task('Serialize-Cobbler-Items-Local', function(cb) {
+gulp.task('Serialize-Cobbler-Items-Local', function (cb) {
     var psScriptFolder = config.psScriptFolderLocal;
-    exec('powershell.exe -file ' + psScriptFolder + '/SerializeItems.ps1', function(err, stdout, stderr) {
+    exec('powershell.exe -file ' + psScriptFolder + '/SerializeItems.ps1', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -84,7 +85,6 @@ gulp.task('Deserialize-Cobbler-Items-Local', function (cb) {
         cb(err);
     });
 });
-
 
 gulp.task('DeployAll-Local', function (callback) {
     runSequence(['Publish-Cobbler-Local', 'Publish-Elf-Local'], 'Publish-Cobbler-Design-Local', 'Deserialize-Cobbler-Items-Local', callback);
@@ -126,3 +126,83 @@ gulp.task("Auto-Publish-Views-Local", function () {
         console.log("published " + event.path);
     });
 });
+
+//Scripts for QA environment. Will bbe deployed via TeamCity
+gulp.task("Publish-Cobbler-QA", function () {
+    var destCobbler = config.cobblerWebsiteRootQA;
+    console.log("publish to " + destCobbler + " folder");
+    gulp.src("**/Cobbler.Web.csproj")
+        .pipe(debug({ title: "Building project:" }))
+        .pipe(msbuild({
+            targets: ["Clean", "Build"],
+            configuration: "Debug",
+            logCommand: false,
+            verbosity: "minimal",
+            maxcpucount: 0,
+            toolsVersion: 12.0,
+            properties: {
+                DeployOnBuild: "true",
+                DeployDefaultTarget: "WebPublish",
+                WebPublishMethod: "FileSystem",
+                DeleteExistingFiles: "false",
+                publishUrl: destCobbler
+            }
+        }));
+});
+
+
+gulp.task("Publish-Elf-QA", function () {
+    var destElf = config.elfWebsiteRootQA;
+    console.log("publish to " + destElf + " folder");
+    gulp.src("**/Elf.WebApi.csproj")
+        .pipe(debug({ title: "Building project:" }))
+        .pipe(msbuild({
+            targets: ["Clean", "Build"],
+            configuration: "Debug",
+            logCommand: false,
+            verbosity: "minimal",
+            maxcpucount: 0,
+            toolsVersion: 12.0,
+            properties: {
+                DeployOnBuild: "true",
+                DeployDefaultTarget: "WebPublish",
+                WebPublishMethod: "FileSystem",
+                DeleteExistingFiles: "false",
+                publishUrl: destElf
+            }
+        }));
+});
+
+gulp.task("Publish-Cobbler-Design-QA", function () {
+    var destCobbler = config.cobblerWebsiteRootQA;
+    gulp.src("./Cobbler.Design/Content/**/*").pipe(gulp.dest(destCobbler + "/Content"));
+    gulp.src("./Cobbler.Design/fonts/**/*").pipe(gulp.dest(destCobbler + "/fonts"));
+    gulp.src("./Cobbler.Design/Scripts/**/*").pipe(gulp.dest(destCobbler + "/Scripts"));
+});
+
+gulp.task('Serialize-Cobbler-Items-QA', function (cb) {
+    var psScriptFolder = config.psScriptFolderQA;
+    exec('powershell.exe -file ' + psScriptFolder + '/SerializeItems.ps1', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
+});
+
+gulp.task('Deserialize-Cobbler-Items-QA', function (cb) {
+    var psScriptFolder = config.psScriptFolderQA;
+    exec('powershell.exe -file ' + psScriptFolder + '/DeserializeItems.ps1', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
+});
+
+gulp.task('DeployAll-QA', function (callback) {
+    runSequence(['Publish-Cobbler-QA', 'Publish-Elf-QA'], 'Publish-Cobbler-Design-QA', 'Deserialize-Cobbler-Items-QA', callback);
+});
+
+gulp.task('Deploy-Projects-QA', function (callback) {
+    runSequence(['Publish-Cobbler-QA', 'Publish-Elf-QA'], 'Publish-Cobbler-Design-QA', callback);
+});
+
