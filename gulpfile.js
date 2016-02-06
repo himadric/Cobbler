@@ -135,7 +135,7 @@ gulp.task("Publish-Cobbler-QA", function () {
         .pipe(debug({ title: "Building project:" }))
         .pipe(msbuild({
             targets: ["Clean", "Build"],
-            configuration: "Debug",
+            configuration: "QA",
             logCommand: false,
             verbosity: "minimal",
             maxcpucount: 0,
@@ -158,7 +158,7 @@ gulp.task("Publish-Elf-QA", function () {
         .pipe(debug({ title: "Building project:" }))
         .pipe(msbuild({
             targets: ["Clean", "Build"],
-            configuration: "Debug",
+            configuration: "QA",
             logCommand: false,
             verbosity: "minimal",
             maxcpucount: 0,
