@@ -180,6 +180,10 @@ gulp.task("Publish-Cobbler-Design-QA", function () {
     gulp.src("./Cobbler.Design/Scripts/**/*").pipe(gulp.dest(destCobbler + "/Scripts"));
 });
 
+gulp.task("Publish-Cobbler-Items-QA", function () {
+    var destCobblerData = config.cobblerWebsiteDataFolderQA;
+    gulp.src("./data/**/*").pipe(gulp.dest(destCobblerData));
+});
 
 gulp.task('Deserialize-Cobbler-Items-QA', function (cb) {
     var psScriptFolder = config.psScriptFolderQA;
@@ -191,7 +195,7 @@ gulp.task('Deserialize-Cobbler-Items-QA', function (cb) {
 });
 
 gulp.task('DeployAll-QA', function (callback) {
-    runSequence(['Publish-Cobbler-QA', 'Publish-Elf-QA'], 'Publish-Cobbler-Design-QA', 'Deserialize-Cobbler-Items-QA', callback);
+    runSequence(['Publish-Cobbler-QA', 'Publish-Elf-QA'], 'Publish-Cobbler-Design-QA', 'Publish-Cobbler-Items-QA', 'Deserialize-Cobbler-Items-QA', callback);
 });
 
 gulp.task('Deploy-Projects-QA', function (callback) {
