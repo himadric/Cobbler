@@ -112,7 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Elf.WebApi\Elf.WebApi.csproj">
-      <Project>{1FD7D6CF-0295-44B5-A188-B7929D326549}</Project>
+      <Project>{1fd7d6cf-0295-44b5-a188-b7929d326549}</Project>
       <Name>Elf.WebApi</Name>
     </ProjectReference>
   </ItemGroup>

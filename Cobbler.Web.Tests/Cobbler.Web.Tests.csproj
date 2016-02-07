@@ -101,8 +101,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\..\Projects\Cobbler\Cobbler.Web\Cobbler.Web.csproj">
-      <Project>{BB6A3F92-A19F-4BFE-A781-D4A71C06F331}</Project>
+    <ProjectReference Include="..\Cobbler.Web\Cobbler.Web.csproj">
+      <Project>{bb6a3f92-a19f-4bfe-a781-d4a71c06f331}</Project>
       <Name>Cobbler.Web</Name>
     </ProjectReference>
   </ItemGroup>
